@@ -22,9 +22,10 @@ public class ProductService {
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrize(productDTO.getPrize());
+        product.setSkuCode(productDTO.getSkuCode());
 
         productRespository.save(product);
-        return new ProductResponseDTO(product.getId() , product.getName() , product.getDescription() , product.getPrize()) ;
+        return new ProductResponseDTO(product.getId() , product.getName() , product.getDescription() , product.getPrize() , product.getSkuCode()) ;
     }
 
     public List<ProductResponseDTO> getAllProducts(){
@@ -38,6 +39,7 @@ public class ProductService {
         responseDTO.setName(product.getName());
         responseDTO.setDescription(product.getDescription());
         responseDTO.setPrize(product.getPrize());
+        responseDTO.setSkuCode(product.getSkuCode());
         return responseDTO;
     }
 }

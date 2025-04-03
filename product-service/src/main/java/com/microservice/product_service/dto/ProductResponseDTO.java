@@ -7,15 +7,25 @@ public class ProductResponseDTO {
     String name ;
     String description ;
     BigDecimal prize ;
+    String skuCode;
 
     public ProductResponseDTO() {
     }
 
-    public ProductResponseDTO(String id, String name, String description, BigDecimal prize) {
+    public ProductResponseDTO(String id, String name, String description, BigDecimal prize, String skuCode) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.prize = prize;
+        this.skuCode = skuCode;
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
     }
 
     public String getId() {

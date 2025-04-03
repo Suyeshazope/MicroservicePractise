@@ -19,7 +19,8 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/placeorder")
+    @PostMapping
+//            ("/placeorder")
     public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest){
         orderService.placeOrder(orderRequest);
         return new ResponseEntity<>("Order placed successfully", HttpStatus.OK);

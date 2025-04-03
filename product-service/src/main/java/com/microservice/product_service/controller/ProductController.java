@@ -20,8 +20,10 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
+//            ("/create")
     public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        System.out.println("product DTO , " + productDTO);
         ProductResponseDTO response = productService.createProduct(productDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -31,6 +33,11 @@ public class ProductController {
     @GetMapping
 //    @GetMapping("/get-all-products")
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts(){
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return ResponseEntity.ok(productService.getAllProducts());
     }
 }

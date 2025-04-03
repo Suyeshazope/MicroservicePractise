@@ -11,9 +11,18 @@ public class Product {
     String id ;
     String name ;
     String description ;
+    String skuCode ;
     BigDecimal prize ;
 
     public Product() {
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
     }
 
     public String getId() {
