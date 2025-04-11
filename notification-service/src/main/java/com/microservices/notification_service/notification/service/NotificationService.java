@@ -1,6 +1,7 @@
 package com.microservices.notification_service.notification.service;
 
 import com.microservices.notification_service.order.event.OrderPlacedEvent;
+import org.apache.avro.generic.GenericRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -20,9 +21,15 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    @KafkaListener(topics = "order-placed" , groupId = "notificationService")
-    public void listen(OrderPlacedEvent orderPlacedEvent){
-        log.info("Got message from order-placed topic {}" , orderPlacedEvent);
+    @KafkaListener(topics = "order-placed")
+//    public void listen(OrderPlacedEvent orderPlacedEvent){
+    public void listen(GenericRecord record) {
+//        log.info("Got message from order-placed topic {}" , orderPlacedEvent);
+        OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent(
+                record.get("orderNumber").toString(),
+                record.get("email").toString()
+        );
+        log.info("Received OrderPlacedEvent: {}", orderPlacedEvent);
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
@@ -31,7 +38,7 @@ public class NotificationService {
             messageHelper.setTo(orderPlacedEvent.getEmail().toString());
             messageHelper.setSubject(String.format("Your Order with OrderNumber %s is placed successfully" , orderPlacedEvent.getOrderNumber()));
             messageHelper.setText(String.format("""
-                    Hi 
+                    Hi,
                     
                     Your order with order number %s is now placed successfully.
                     
